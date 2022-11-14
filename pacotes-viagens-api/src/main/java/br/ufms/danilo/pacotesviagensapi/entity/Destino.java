@@ -2,6 +2,7 @@ package br.ufms.danilo.pacotesviagensapi.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "TB_DESTINO")
 @Data
 @NoArgsConstructor
+@Relation(collectionRelation = "destinos",itemRelation = "destino")
 public class Destino {
 
     @Id

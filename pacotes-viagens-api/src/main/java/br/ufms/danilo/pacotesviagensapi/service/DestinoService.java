@@ -1,5 +1,6 @@
 package br.ufms.danilo.pacotesviagensapi.service;
 
+import br.ufms.danilo.pacotesviagensapi.dto.DestinoDto;
 import br.ufms.danilo.pacotesviagensapi.entity.Destino;
 import br.ufms.danilo.pacotesviagensapi.repository.DestinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,9 @@ public class DestinoService {
         Example destinoFilterExample = Example.of(destinoModel, matcher);
 
         return destinoRepository.findAll(destinoFilterExample, pageable);
+    }
+
+    public Destino insertNew(Destino destino) {
+        return destinoRepository.save(destino);
     }
 }
