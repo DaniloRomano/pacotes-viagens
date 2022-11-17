@@ -1,7 +1,7 @@
 import DestinoListagemView from '@/views/destino/DestinoListagemView'
 
 export default {
-    path: '/destino',
+    path: '/destino/',
     name: 'destino',
     component: DestinoListagemView,
     meta: {

@@ -17,7 +17,7 @@
             <v-btn
                 prepend-icon="mdi-account-multiple"
                 variant="outlined"
-                stacked
+                stacked                
                 color="primary"
                 class="mb-5"
                 @click="setCustomerUser()">Acessar como Cliente
@@ -26,7 +26,7 @@
           <v-col cols="6">
             <v-btn
                 prepend-icon="mdi-account"
-                variant="outlined"
+                variant="outlined"                
                 stacked
                 color="secondary"
                 @click="setAdministratorUser()">Acessar como Adiministrador
@@ -51,7 +51,7 @@ export default {
       userService.setUserAdministrator();
       this.redirectToHome()
     },
-    redirectToHome() {
+    redirectToHome() {      
       setTimeout(()=>this.$router.push({name: 'home'}),500)
     }
   }

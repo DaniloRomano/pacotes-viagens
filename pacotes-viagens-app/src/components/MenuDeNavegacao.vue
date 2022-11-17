@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer color="primary" app>
+  <v-navigation-drawer theme="dark" app>
     <v-list>
       <v-list-item
       :prepend-avatar="getAvatar()"

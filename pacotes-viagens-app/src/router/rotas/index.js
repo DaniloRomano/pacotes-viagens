@@ -1,9 +1,11 @@
 import login from './login-route'
 import home from './home-route'
 import destinoListagem from './destinos-route'
+import destinoNovo from './destino-novo-route'
 
 export {
     login,
     home,
-    destinoListagem
+    destinoListagem,
+    destinoNovo
 }
