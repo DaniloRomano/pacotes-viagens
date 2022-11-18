@@ -6,6 +6,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/pacotes-viagens-db
     username: postgres
     password: postgres
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
 
   jpa:
     hibernate:

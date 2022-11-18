@@ -2,7 +2,13 @@
   <v-container>
     <v-row>
       <v-col cols="2">
-        <v-btn variant="text" size="x-large" to="/destino/novo" prepend-icon="mdi-plus">Novo</v-btn>
+        <v-btn
+          variant="text"
+          size="x-large"
+          to="/destino/novo"
+          prepend-icon="mdi-plus"
+          >Novo</v-btn
+        >
       </v-col>
       <v-col cols="7">
         <v-text-field
@@ -28,13 +34,24 @@
               <th>Ações</th>
             </tr>
           </thead>
-          <tbody v-if="destinos">
+          <tbody v-if="totalElementos > 0">
             <tr v-for="destino in destinos" :key="destino.id">
               <td>{{ destino.id }}</td>
               <td>{{ destino.nome }}</td>
               <td>
-                <v-btn icon="mdi-pencil" size="small" @click="irParaEdicao(destino.id)" variant="icon"></v-btn>
-                <v-btn icon="mdi-delete" size="small" @click="deletarDestino(destino.id)" variant="icon" color="red"></v-btn>
+                <v-btn
+                  icon="mdi-pencil"
+                  size="small"
+                  @click="irParaEdicao(destino.id)"
+                  variant="icon"
+                ></v-btn>
+                <v-btn
+                  icon="mdi-delete"
+                  size="small"
+                  @click="deletarDestino(destino.id)"
+                  variant="icon"
+                  color="red"
+                ></v-btn>
               </td>
             </tr>
           </tbody>
@@ -50,7 +67,12 @@
         </v-table>
       </v-col>
       <v-col cols="12">
-        <v-pagination v-model="page" :length="totalPages" @click="carregarPagina()"></v-pagination>
+        <v-pagination
+          v-model="page"
+          total-visible="5"
+          :length="totalPaginas"
+          @click="carregarPagina()"
+        ></v-pagination>
       </v-col>
     </v-row>
   </v-container>
@@ -62,42 +84,51 @@ export default {
   name: "DestinoListagemView",
   data() {
     return {
-      destinos: null,
       nome: null,
       page: 1,
-      totalPages: 1
+      destinos: null,
+      totalPaginas: 0,
+      totalElementos: 0,
     };
   },
   methods: {
-    carregarPagina(){
-      DestinoService.getAllByFilter({nome: this.nome, page: this.page-1})
-        .then((response) => {
-          this.destinos = response.data.content
-          this.totalPages = response.data.totalPages
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    async carregarPagina(page) {
+      let retorno = await DestinoService.getAllByFilter({
+        nome: this.nome,
+        page: this.page - 1,
+      });
+      if (retorno.status == 200) {
+        this.destinos = retorno.data.content;
+        this.totalPaginas = retorno.data.totalPages;
+        this.totalElementos = retorno.data.totalElements;
+      } else {
+        alert("Ocorreu um erro");
+      }
     },
-    buscar() {
-      DestinoService.getAllByFilter({nome: this.nome, page: 0})
-        .then((response) => {
-          this.destinos = response.data.content
-          this.totalPages = response.data.totalPages
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    async buscar() {
+      let retorno = await DestinoService.getAllByFilter({
+        nome: this.nome,
+        page: 0,
+      });
+      if (retorno.status == 200) {
+        this.destinos = retorno.data.content;
+        this.totalPaginas = retorno.data.totalPages;
+        this.totalElementos = retorno.data.totalElements;
+      } else {
+        alert("Ocorreu um erro");
+      }
     },
-    irParaEdicao(idDestino){
-      
+    irParaEdicao(idDestino) {
+      this.$router.push({name: 'destino-alterar', params:{id:idDestino}})
     },
-    deletarDestino(idDestino){
-
-    }
+    async deletarDestino(idDestino) {
+      await DestinoService.deletar(idDestino);
+      alert("Excluido com sucesso");
+      await this.buscar();
+    },
   },
-  mounted() {
-    this.buscar();
+  async mounted() {
+    await this.buscar();
   },
 };
 </script>

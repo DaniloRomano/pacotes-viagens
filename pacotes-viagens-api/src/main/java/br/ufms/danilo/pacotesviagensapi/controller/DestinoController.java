@@ -13,8 +13,11 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,9 +46,25 @@ public class DestinoController {
     public ResponseEntity<Page<Destino>> findAllByFilter(@PageableDefault Pageable pageable, String nome){
         return ResponseEntity.ok(service.findAllByFilter(pageable,nome));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Destino> findById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(service.findById(id));
+    }
     
     @PostMapping
     public ResponseEntity<Destino> insertNew(@RequestBody DestinoDto destinoDto){
         return ResponseEntity.ok(service.insertNew(converter.parseDtoToDestino(destinoDto)));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Destino> alterar(@PathVariable("id") Long idDestino,@RequestBody DestinoDto destinoDto){
+        destinoDto.setId(idDestino);
+        return ResponseEntity.ok(service.alterar(converter.parseDtoToDestino(destinoDto)));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable("id") Long idDestino){
+        service.deletar(idDestino);
     }
 }

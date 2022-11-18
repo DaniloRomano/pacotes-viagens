@@ -5,10 +5,15 @@ class DestinoService {
         return api.get('/destino')
     }
 
-    getAllByFilter(filters) {
+    async getAllByFilter(filters) {
         if (filters.nome)
-            return api.get(`/destino?nome=${filters.nome}&page=${filters.page}`)
-        return api.get(`/destino?page=${filters.page}`)
+            return await api.get(`/destino?nome=${filters.nome}&page=${filters.page}`)
+        return await api.get(`/destino?page=${filters.page}`)
+    }
+
+    async getById(id){
+        const retorno = await api.get(`/destino/${id}`)
+        return retorno
     }
 
     deletar(id){
@@ -16,7 +21,12 @@ class DestinoService {
     }
 
     alterar(destino){
-        return api.put(`/destino/${id}`,destino)
+        return api.put(`/destino/${destino.id}`,destino)
+    }
+
+    async inserir(destino){
+        const retorno = await api.post('/destino',destino)
+        return retorno;
     }
 }
 
