@@ -16,7 +16,7 @@
           <v-col cols="6">
             <v-btn
                 prepend-icon="mdi-account-multiple"
-                variant="outlined"
+                variant="elevated"
                 stacked                
                 color="primary"
                 class="mb-5"
@@ -26,7 +26,7 @@
           <v-col cols="6">
             <v-btn
                 prepend-icon="mdi-account"
-                variant="outlined"                
+                variant="elevated"
                 stacked
                 color="secondary"
                 @click="setAdministratorUser()">Acessar como Adiministrador

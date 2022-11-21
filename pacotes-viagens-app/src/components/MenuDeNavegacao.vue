@@ -16,10 +16,10 @@
       <v-list-item nav to="/minhas-compras" prepend-icon="mdi-cart" v-if="isCustomer()">
         Minhas Compras
       </v-list-item>
-      <v-list-item nav to="/pacotes" prepend-icon="mdi-tool" v-if="isAdmin()">
+      <v-list-item nav to="/pacotes" prepend-icon="mdi-map-plus" v-if="isAdmin()">
         Pacotes
       </v-list-item>
-      <v-list-item nav to="/encontrar-pacote" prepend-icon="mdi-find" v-if="isCustomer()">
+      <v-list-item nav to="/encontrar-pacote" prepend-icon="mdi-map-search" v-if="isCustomer()">
         Encontrar Pacote
       </v-list-item>
     </v-list>
