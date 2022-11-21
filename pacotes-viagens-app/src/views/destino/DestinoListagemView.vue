@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container>    
     <v-row>
       <v-col cols="2">
         <v-btn
@@ -25,15 +25,16 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12">
-        <v-table fixed-header>
+      <v-col cols="12">        
+        <v-progress-linear color="primary" indeterminate block v-if="loading"></v-progress-linear>
+        <v-table>
           <thead>
             <tr>
               <th>Código</th>
               <th>Nome</th>
               <th>Ações</th>
             </tr>
-          </thead>
+          </thead>                    
           <tbody v-if="totalElementos > 0">
             <tr v-for="destino in destinos" :key="destino.id">
               <td>{{ destino.id }}</td>
@@ -89,10 +90,12 @@ export default {
       destinos: null,
       totalPaginas: 0,
       totalElementos: 0,
+      loading: false
     };
   },
   methods: {
     async carregarPagina(page) {
+      this.loading=true
       let retorno = await DestinoService.getAllByFilter({
         nome: this.nome,
         page: this.page - 1,
@@ -104,8 +107,10 @@ export default {
       } else {
         alert("Ocorreu um erro");
       }
+      this.loading=false
     },
     async buscar() {
+      this.loading=true
       let retorno = await DestinoService.getAllByFilter({
         nome: this.nome,
         page: 0,
@@ -117,6 +122,7 @@ export default {
       } else {
         alert("Ocorreu um erro");
       }
+      this.loading=false
     },
     irParaEdicao(idDestino) {
       this.$router.push({name: 'destino-alterar', params:{id:idDestino}})

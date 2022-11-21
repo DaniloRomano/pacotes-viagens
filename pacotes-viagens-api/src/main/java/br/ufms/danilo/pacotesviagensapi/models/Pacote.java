@@ -1,7 +1,10 @@
-package br.ufms.danilo.pacotesviagensapi.entity;
+package br.ufms.danilo.pacotesviagensapi.models;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -23,4 +26,13 @@ public class Pacote {
     @ManyToOne
     @JoinColumn(name = "DESTINO_ID", foreignKey = @ForeignKey(name = "fk_pacote_destino"))
     private Destino destino;
+
+    @Column(nullable = false)
+    private String descricao;
+
+    @Column(nullable = false)
+    private BigDecimal precoDiario;
+
+    @Column(nullable = false)
+    private Long quantidadeDias;
 }

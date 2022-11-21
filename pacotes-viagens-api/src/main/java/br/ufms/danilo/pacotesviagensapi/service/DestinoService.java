@@ -1,7 +1,7 @@
 package br.ufms.danilo.pacotesviagensapi.service;
 
 import br.ufms.danilo.pacotesviagensapi.dto.DestinoDto;
-import br.ufms.danilo.pacotesviagensapi.entity.Destino;
+import br.ufms.danilo.pacotesviagensapi.models.Destino;
 import br.ufms.danilo.pacotesviagensapi.repository.DestinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

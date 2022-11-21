@@ -1,7 +1,8 @@
 package br.ufms.danilo.pacotesviagensapi.converter;
 
 import br.ufms.danilo.pacotesviagensapi.dto.DestinoDto;
-import br.ufms.danilo.pacotesviagensapi.entity.Destino;
+import br.ufms.danilo.pacotesviagensapi.models.Destino;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

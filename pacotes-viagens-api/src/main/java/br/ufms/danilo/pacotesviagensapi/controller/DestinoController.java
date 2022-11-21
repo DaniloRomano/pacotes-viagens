@@ -3,7 +3,7 @@ package br.ufms.danilo.pacotesviagensapi.controller;
 import br.ufms.danilo.pacotesviagensapi.assembler.destino.DestinoRepresentationModelAssembler;
 import br.ufms.danilo.pacotesviagensapi.converter.DestinoConverter;
 import br.ufms.danilo.pacotesviagensapi.dto.DestinoDto;
-import br.ufms.danilo.pacotesviagensapi.entity.Destino;
+import br.ufms.danilo.pacotesviagensapi.models.Destino;
 import br.ufms.danilo.pacotesviagensapi.service.DestinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

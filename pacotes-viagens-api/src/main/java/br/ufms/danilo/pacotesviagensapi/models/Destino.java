@@ -1,4 +1,4 @@
-package br.ufms.danilo.pacotesviagensapi.entity;
+package br.ufms.danilo.pacotesviagensapi.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
