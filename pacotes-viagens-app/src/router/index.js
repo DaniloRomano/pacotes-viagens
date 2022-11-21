@@ -1,13 +1,9 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
-import {login, home,destinoListagem,destinoNovo,destinoAlterar } from './rotas'
+import rotas from './rotas'
 import userService from '@/services/user/UserService'
 
 const routes = [
-    home, 
-    login,
-    destinoListagem,
-    destinoNovo,
-    destinoAlterar
+    ...rotas
 ]
 
 const router = createRouter({

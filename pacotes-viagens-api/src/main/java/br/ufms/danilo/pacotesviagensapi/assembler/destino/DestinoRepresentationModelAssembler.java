@@ -1,7 +1,8 @@
 package br.ufms.danilo.pacotesviagensapi.assembler.destino;
 
 import br.ufms.danilo.pacotesviagensapi.controller.DestinoController;
-import br.ufms.danilo.pacotesviagensapi.entity.Destino;
+import br.ufms.danilo.pacotesviagensapi.models.Destino;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
