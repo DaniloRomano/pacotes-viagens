@@ -3,10 +3,10 @@
     <v-row>
       <v-col cols="12">
         <v-banner border lines="1">
-          <v-bannter-text >Cadastro de Destinos</v-bannter-text> </v-banner>
+          <v-bannter-text >Cadastro de Destinos</v-bannter-text> 
+        </v-banner>
       </v-col>
-    </v-row>
-    <v-row>
+    
         <v-col cols="2">
           <v-btn
               variant="text"

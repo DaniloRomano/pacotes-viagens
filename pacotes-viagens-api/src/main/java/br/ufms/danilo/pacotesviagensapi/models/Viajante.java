@@ -40,6 +40,9 @@ public class Viajante {
     @Column(nullable = false)
     private Date dataNascimento;
 
+    @Column(nullable = false)
+    private String password;
+
     @ManyToMany(mappedBy = "viajantes",fetch = FetchType.LAZY)
     @JsonIgnoreProperties("viajantes")
     private List<Viagem> viagens;

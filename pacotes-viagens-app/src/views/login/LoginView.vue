@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="left-container">
-      <img src="../../assets/logo-travel.png"/>
+      <img src="../../assets/logo-travel.png" />
     </div>
     <div class="right-container">
       <v-container fluid>
@@ -13,49 +13,58 @@
             <h4>Venda de pacotes de Viagem</h4>
           </v-col>
           <v-divider class="my-10"></v-divider>
-          <v-col cols="6">
-            <v-btn
-                prepend-icon="mdi-account-multiple"
-                variant="elevated"
-                stacked                
-                color="primary"
-                class="mb-5"
-                @click="setCustomerUser()">Acessar como Cliente
-            </v-btn>
+          <v-col cols="12" v-if="exibeLoginCliente">
+              <v-text-field variant="outlined" label="Usuário" placeholder="Digite o seu nome de usuário" v-model="user"/>
+              <v-text-field variant="outlined" type="password" label="Senha" placeholder="Digite a sua senha" v-model="senha"/>
+              <v-btn variant="elevated" block color="green" prepend-icon="mdi-access" @click="entrar()" >Entrar</v-btn>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" v-else>
             <v-btn
-                prepend-icon="mdi-account"
-                variant="elevated"
-                stacked
-                color="secondary"
-                @click="setAdministratorUser()">Acessar como Adiministrador
+              prepend-icon="mdi-account-multiple"
+              variant="elevated"
+              color="primary"
+              block
+              class="mb-5"
+              @click="setCustomerUser()"
+              >Acessar como Cliente
+            </v-btn>
+            <v-btn
+              prepend-icon="mdi-account"
+              variant="elevated"
+              block
+              color="secondary"
+              @click="setAdministratorUser()"
+              >Acessar como Adiministrador
             </v-btn>
           </v-col>
         </v-row>
       </v-container>
-
     </div>
   </div>
 </template>
 <script>
-import userService from '@/services/user/UserService'
+import userService from "@/services/user/UserService";
 
 export default {
+  data() {
+    return {
+      exibeLoginCliente: true,
+    };
+  },
   methods: {
     setCustomerUser() {
-      userService.setUserCustomer()
-      this.redirectToHome()
+      userService.setUserCustomer();
+      this.redirectToHome();
     },
     setAdministratorUser() {
       userService.setUserAdministrator();
-      this.redirectToHome()
+      this.redirectToHome();
     },
-    redirectToHome() {      
-      setTimeout(()=>this.$router.push({name: 'home'}),500)
-    }
-  }
-}
+    redirectToHome() {
+      setTimeout(() => this.$router.push({ name: "home" }), 500);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -68,7 +77,8 @@ export default {
 
 .left-container {
   width: 65%;
-  background: url('../../assets/estrutura/login-page-background.jpg') #920605 no-repeat;
+  background: url("../../assets/estrutura/login-page-background.jpg") #920605
+    no-repeat;
   background-size: cover;
   background-position-x: -45rem;
   display: flex;
@@ -82,10 +92,9 @@ export default {
   width: 50%;
 }
 
-
 .right-container {
   width: 35%;
-  padding: 10em 2em;
+  padding: 5em 2em;
   text-align: center;
 }
 </style>
