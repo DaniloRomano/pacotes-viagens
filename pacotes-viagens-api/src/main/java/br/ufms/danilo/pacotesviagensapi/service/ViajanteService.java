@@ -2,6 +2,7 @@ package br.ufms.danilo.pacotesviagensapi.service;
 
 import java.util.List;
 
+import br.ufms.danilo.pacotesviagensapi.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -26,14 +27,18 @@ public class ViajanteService {
 
     public Page<Viajante> findAllByFilter(Viajante viajante, Pageable pageable){
         ExampleMatcher matcher= ExampleMatcher.matching()
-                .withMatcher("nome",match->match.contains())
-                .withMatcher("cpf",match->match.contains())
+                .withMatcher("nome", ExampleMatcher.GenericPropertyMatcher::contains)
+                .withMatcher("cpf", ExampleMatcher.GenericPropertyMatcher::contains)
                 .withIgnoreCase()
                 .withIgnoreNullValues();
 
-        Example example=Example.of(viajante,matcher);
+        Example<Viajante> example=Example.of(viajante,matcher);
 
         return repository.findAll(example,pageable);
+    }
+
+    public Viajante findById(Viajante viajante) throws NotFoundException {
+        return repository.findById(viajante.getId()).orElseThrow(()-> new NotFoundException("Viajante não encontrado"));
     }
 
     public List<Viajante> findByViagemId(Long viagemId){
@@ -61,5 +66,9 @@ public class ViajanteService {
 
         if (viajante.getDataNascimento().compareTo(new Date(System.currentTimeMillis()))>0)
             throw new BadRequestException("A Data de nascimento já deve ter ocorrido.");
+    }
+
+    public Viajante login(Viajante viajante){
+        return repository.findViajanteByCpfAndPassword(viajante.getCpf(), viajante.getPassword());
     }
 }
