@@ -15,7 +15,5 @@ public interface ViagemRepository extends JpaRepository<Viagem, Long>, QueryByEx
     
     @Query("UPDATE Viagem v SET v.situacao = :situacao WHERE v.id=:id")
     void atualizaSituacao(@Param("id") Long viagemId,@Param("situacao") String situacao );
-
-    @Query("Select viagem from Viagem viagem")
-    Viagem findViagemComMesmoViajanteEData(@Param("data") Date data,@Param("viajantesId") List<Long> ViajantesIds);
+    
 }

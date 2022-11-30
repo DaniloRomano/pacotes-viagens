@@ -72,7 +72,7 @@ public class ViagemService {
         Locale locale=Locale.getDefault();
         Calendar dataAtual=Calendar.getInstance(locale);        
 
-        if (viagem.getDataSaida().compareTo(dataAtual.getTime())){
+        if (viagem.getDataSaida().compareTo(dataAtual.getTime())<0){
             throw new BadRequestException("Não é possível marcar uma viagem para uma data que já passou.");
         }
     }
