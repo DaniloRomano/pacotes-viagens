@@ -1,5 +1,7 @@
 package br.ufms.danilo.pacotesviagensapi.repository;
 
+import java.sql.Date;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +15,7 @@ public interface ViagemRepository extends JpaRepository<Viagem, Long>, QueryByEx
     
     @Query("UPDATE Viagem v SET v.situacao = :situacao WHERE v.id=:id")
     void atualizaSituacao(@Param("id") Long viagemId,@Param("situacao") String situacao );
+
+    @Query("Select viagem from Viagem viagem")
+    Viagem findViagemComMesmoViajanteEData(@Param("data") Date data,@Param("viajantesId") List<Long> ViajantesIds);
 }
