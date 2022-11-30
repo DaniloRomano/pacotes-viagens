@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-banner  elevation="1" border lines="one" >
+        <v-banner  border  >
           <v-banner-text >Cadastro de Pacotes</v-banner-text>
         </v-banner>
       </v-col>
