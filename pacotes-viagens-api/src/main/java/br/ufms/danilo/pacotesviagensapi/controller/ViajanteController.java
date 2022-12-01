@@ -4,12 +4,14 @@ import br.ufms.danilo.pacotesviagensapi.converter.ViajanteConverter;
 import br.ufms.danilo.pacotesviagensapi.dto.ViajanteDto;
 import br.ufms.danilo.pacotesviagensapi.exceptions.BadRequestException;
 import br.ufms.danilo.pacotesviagensapi.exceptions.InvalidDocumentException;
+import br.ufms.danilo.pacotesviagensapi.exceptions.NotFoundException;
 import br.ufms.danilo.pacotesviagensapi.models.Viajante;
 import br.ufms.danilo.pacotesviagensapi.service.ViajanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/v1/viajante")
 public class ViajanteController {
 
@@ -35,6 +38,11 @@ public class ViajanteController {
     @GetMapping
     public ResponseEntity<Page<Viajante>> findAllByFilter(@RequestParam Map<String, String> viajanteFiltros, Pageable pageable){
         return ResponseEntity.ok(service.findAllByFilter(converter.parseMapToViajante(viajanteFiltros),pageable));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Viajante> findById(@PathVariable("id") Long id) throws NotFoundException {
+        return ResponseEntity.ok(service.findById(converter.parseIdToViajante(id)));
     }
 
 
@@ -51,6 +59,11 @@ public class ViajanteController {
     @DeleteMapping("/{id}")
     public void remover(@PathVariable("id") Long id){
         service.remover(converter.parseIdToViajante(id));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Viajante> login(@RequestBody ViajanteDto viajanteDto){
+        return ResponseEntity.ok(service.login(converter.parseDtoToViajante(viajanteDto)));
     }
     
 }

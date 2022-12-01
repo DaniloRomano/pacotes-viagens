@@ -6,6 +6,8 @@ import br.ufms.danilo.pacotesviagensapi.exceptions.NotFoundException;
 import br.ufms.danilo.pacotesviagensapi.models.Viagem;
 import br.ufms.danilo.pacotesviagensapi.repository.ViagemRepository;
 
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,14 @@ public class ViagemService {
     public void cancelarViagem(Long id) throws Exception {
         Viagem viagem = repository.findById(id).orElseThrow(() -> new NotFoundException("Viagem não encontrada"));
 
+        Locale locale=Locale.getDefault();
+        Calendar dataAtual=Calendar.getInstance(locale);        
+        dataAtual.add(Calendar.DATE, -15);
+
+        if (viagem.getDataSaida().compareTo(dataAtual.getTime())>0){
+            throw new Exception("O Cancelamento só é permitido com 15 dias de antecedencia.");
+        }
+
         if (
                 viagem.getSituacao().equals(EnumSituacoesViagem.REALIZADA)
         ) throw new Exception("Não é possível cancelar uma viagem já Realizada.");
@@ -59,5 +69,11 @@ public class ViagemService {
     }
 
     private void validar(Viagem viagem) throws BadRequestException {
+        Locale locale=Locale.getDefault();
+        Calendar dataAtual=Calendar.getInstance(locale);        
+
+        if (viagem.getDataSaida().compareTo(dataAtual.getTime())<0){
+            throw new BadRequestException("Não é possível marcar uma viagem para uma data que já passou.");
+        }
     }
 }
