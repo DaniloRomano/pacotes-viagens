@@ -16,6 +16,7 @@
 <script>
 import DestinoModel from '@/models/destino/DestinoModel'
 import DestinoService from '@/services/destino/DestinoService'
+import { mutationTypes } from '@/constants'
 
 export default {
     name: 'DestinoNovoView',
@@ -29,10 +30,21 @@ export default {
             let response = await DestinoService.inserir(this.destino)            
             if (response.status===200){   
                 this.destino.nome=null
-                alert('salvo com sucesso')                
+                this.$store.commit(mutationTypes.ALERTA.SHOW_ALERTA,{
+                  msg : 'Destino Salvo com sucesso',
+                  tipo: 'success',
+                  mostrar: true
+                })
+              setTimeout(()=>{
                 this.$router.push({name: 'destino'})
+              },1000)
+
             }else{
-                alert('Ocorreu um erro: '+response.status)
+                this.$store.commit(mutationTypes.ALERTA.SHOW_ALERTA,{
+                  msg: 'Ocorreu um erro',
+                  tipo: 'error',
+                  mostrar:true
+                })
             }
         }
     }
